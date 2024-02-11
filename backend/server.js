@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/user.route.js";
 import authRouter from './routes/auth.route.js';
+import postRoutes from './routes/post.route.js';
 dotenv.config()
 const app = express();
 
@@ -22,6 +23,7 @@ app.listen(3000,()=>{
 
 app.use('/api/user',userRouter)
 app.use('/api/user',authRouter)
+app.use('/api/post',postRoutes)
 
 app.use((err,req,res,next)=>{
     const statusCode = err.statusCode || 500;

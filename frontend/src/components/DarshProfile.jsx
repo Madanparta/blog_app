@@ -1,11 +1,12 @@
 import { Alert, Button, Modal, TextInput } from 'flowbite-react';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
+import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import { updateStart,updateSuccess,updateFailure,deleteFailure,deleteSuccess,deleteUserStart,signoutSuccess } from '../redux/user/userSlice';
 import {HiOutlineExclamationCircle} from 'react-icons/hi';
 
 const DarshProfile = () => {
-    const {currentUser,error} = useSelector(state=>state.user);
+    const {currentUser,error,loading } = useSelector(state=>state.user);
 
     const [imageFile,setImageFile]=useState(null);
     const [imageFileUrl,setImageFileUrl]=useState(null);
@@ -131,9 +132,14 @@ const DarshProfile = () => {
         <TextInput type='text' id='username' placeholder='username' defaultValue={currentUser.username} onChange={handleChange}/>
         <TextInput type='text' id='email' placeholder='email' defaultValue={currentUser.email} onChange={handleChange}/>
         <TextInput type='text' id='password' placeholder='password' onChange={handleChange}/>
-        <Button type='submit' gradientDuoTone='purpleToBlue' outline>
-            Update
+        <Button type='submit' gradientDuoTone='purpleToBlue' outline disabled={loading}>
+            {loading? 'Loading...' : 'Update'}
         </Button>
+        {
+          currentUser.isAdmin && (
+            <Link to={'/create-post'}><Button type='button' gradientDuoTone="purpleToPink" className='w-full'>Create a post</Button></Link>
+          )
+        }
       </form>
 
       <div className='text-red-500 flex justify-between mt-5'>

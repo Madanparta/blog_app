@@ -18,7 +18,11 @@ const userSchema = new mongoose.Schema({
     profilePicture:{
         type:String,
         default:"https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-    }
+    },
+    isAdmin:{
+        type:Boolean,
+        default:false
+    },
 },{timestamps:true});
 
 const userModel = mongoose.model('User',userSchema);
